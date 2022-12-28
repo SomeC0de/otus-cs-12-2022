@@ -1,0 +1,36 @@
+; Implementation of adding 1 to any binary number.
+; By default the most left position considered as low bit.
+
+; For initial state first perform transition to low bit with
+; m_right state
+
+; m_right doesn't change bit state, just shifts current position
+; right till blank space is found
+
+; If there is empty string the code is stoped
+
+; add_0 state doesn't change current bit state, just moves position left
+; add_1 state change current bit state to opposite (0->1, 1->0), and moves
+; position left
+
+; halt condition is blank space in most left position is found
+
+0 _ * * halt
+
+0 0 * r m_right
+
+0 1 * r m_right
+
+m_right * * r m_right
+
+m_right _ * l add_1
+
+add_0 * * l add_0
+
+add_0 _ _ * halt
+
+add_1 0 1 l add_0
+
+add_1 1 0 l add_1
+
+add_1 _ 1 * halt
